@@ -7,17 +7,19 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SmartHut.Mvc.Models;
+using SmartHut.Mvc.Models.Services;
+using SmartHut.Mvc.ViewModels;
 
 namespace SmartHut.Mvc.Controllers
 {
     [Authorize]
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ISmartHutService _smartHutService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ISmartHutService smartHutService)
         {
-            _logger = logger;
+            _smartHutService = smartHutService;
         }
 
         [AllowAnonymous]
@@ -26,15 +28,18 @@ namespace SmartHut.Mvc.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpGet("/rooms")]
+        public async Task<IActionResult> Privacy()
         {
-            return View();
+            RoomsViewModel roomsViewModel = new RoomsViewModel
+            {
+                Building = await _smartHutService.GetBuilding(),
+                Devices = await _smartHutService.GetDevices(),
+                Units = await _smartHutService.GetUnits()
+            };
+
+            return View(roomsViewModel);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }

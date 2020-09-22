@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SmartHut.Mvc.Models.Services;
 
 namespace SmartHut.Mvc
 {
@@ -49,6 +50,7 @@ namespace SmartHut.Mvc
 
             services.AddHttpContextAccessor();
             services.AddHttpClient();
+            services.AddHttpClient<ISmartHutService, SmartHutService>();
 
             services.AddRazorPages();
         }

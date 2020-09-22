@@ -1,0 +1,25 @@
+@inject ISmartHutService SmartHutService;
+@model Device
+
+<div class="col-md-6">
+    <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+            <p class="card-title">@Model.Name</p>
+            <p class="card-text">
+                <small>Unit: @Model.Units.Name</small>
+            </p>
+            <div class="row">
+                <div class="col-5">
+                    <p id="@String.Concat(@Model.Id, "max")" class="card-text">Max: @Model.MaxValue @Model.Units.Unit</p>
+                    <p id="@String.Concat(@Model.Id, "min")" class="card-text">Min: @Model.MinValue @Model.Units.Unit</p>
+                </div>
+                @*<div class="col-7">
+                    <p> Current value:</p>
+                    <p>@Model.Value</p>
+                    <p>Last updated: </p>
+                    <p>@Model.Time</p>
+                </div>*@
+            </div>
+        </div>
+    </div>
+</div>

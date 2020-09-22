@@ -1,6 +1,18 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model RoomsViewModel
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = "Rooms";
+}
+
+<h1 id="building-name" class="mt-5 mb-5">@Model.Building.Name</h1>
+
+<div class="album py-5 bg-white">
+    <div class="container">
+        <div class="row">
+            @foreach (var device in Model.Devices)
+            {
+                <partial name="Partials/DeviceCard" model="@device" />
+            }
+        </div>
+    </div>
+</div>
